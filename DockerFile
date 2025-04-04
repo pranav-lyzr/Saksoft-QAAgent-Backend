@@ -11,6 +11,9 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install motor
 
+# Copy the rest of the app code into the container
+COPY . .
+
 # Expose FastAPI's default port
 EXPOSE 8001
 
