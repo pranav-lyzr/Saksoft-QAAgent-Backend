@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  fastapi_app:
+    build: .
+    ports:
+      - "8001:8001"
+    environment:
+      - MONGO_URI=mongodb://root:example@mongo:27017/mydatabase?authSource=admin  # Added auth
+    depends_on:
+      - mongo
+    volumes:
+      - .:/app
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27019:27017"  # Access via 27019 externally
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
