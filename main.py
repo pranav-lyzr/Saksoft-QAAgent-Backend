@@ -31,6 +31,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from cryptography.fernet import Fernet
 import os
 import traceback  # Add this line
+from dotenv import load_dotenv  # Import python-dotenv
+
+load_dotenv()
 
 app = FastAPI()
 
@@ -45,7 +48,8 @@ app.add_middleware(
 
 
 # MongoDB Connection
-MONGO_URI = "mongodb://root:example@mongo:27017"
+# MONGO_URI = "mongodb://root:example@mongo:27017"
+MONGO_URI = os.getenv("MONGO_URI","mongodb://root:example@mongo:27017")
 client = AsyncIOMotorClient(MONGO_URI)
 db = client["mydatabase"]
 analyzer = RepositoryAnalyzer()
